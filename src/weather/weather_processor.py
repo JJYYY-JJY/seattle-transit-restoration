@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -211,12 +212,51 @@ def summarize_probabilities(frame: pd.DataFrame, group_col: str) -> pd.DataFrame
 
 def round_group_probabilities(group: pd.DataFrame, decimals: int) -> pd.DataFrame:
     group = group.copy()
-    rounded = group["probability"].round(decimals)
+    if decimals < 0:
+        raise ValueError("decimals must be >= 0")
 
-    if len(rounded) > 0:
-        residual = round(1.0 - float(rounded.sum()), decimals)
-        # Adjust last state in deterministic order to preserve exactly-1 sums.
-        rounded.iloc[-1] = round(float(rounded.iloc[-1]) + residual, decimals)
+    probs = group["probability"].astype(float)
+    if probs.empty:
+        group["probability"] = probs
+        return group
+
+    if (probs < 0).any() or (probs > 1).any():
+        states = group["weather_state"].tolist()
+        raise ValueError(
+            "Raw probabilities fell outside [0, 1] for group "
+            f"{group['season_or_month'].iloc[0]} with states {states}"
+        )
+
+    total = float(probs.sum())
+    if total <= 0:
+        raise ValueError(
+            "Probability total must be positive for group "
+            f"{group['season_or_month'].iloc[0]}"
+        )
+
+    normalized = probs / total
+    scale = 10**decimals
+
+    scaled = normalized * scale
+    base = scaled.apply(math.floor).astype(int)
+    remainder_units = int(scale - int(base.sum()))
+
+    if remainder_units < 0:
+        # Defensive fallback for unexpected floating-point drift.
+        for idx in reversed(base.index.tolist()):
+            if remainder_units == 0:
+                break
+            if base.loc[idx] > 0:
+                base.loc[idx] -= 1
+                remainder_units += 1
+
+    if remainder_units > 0:
+        fractional = (scaled - base).sort_values(ascending=False)
+        target_indexes = fractional.index.tolist()
+        for i in range(remainder_units):
+            base.loc[target_indexes[i % len(target_indexes)]] += 1
+
+    rounded = (base / scale).astype(float)
 
     if (rounded < 0).any() or (rounded > 1).any():
         states = group["weather_state"].tolist()
