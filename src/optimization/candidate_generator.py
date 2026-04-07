@@ -267,7 +267,10 @@ def build_gap_table(panel_df: pd.DataFrame, current_version_id: str, min_gap_thr
         np.nan,
     )
 
-    gaps = gaps.sort_values(["service_gap_u", "route_id", "direction_id", "time_period"], ascending=[False, True, True, True])
+    gaps = gaps.sort_values(
+        ["service_gap_u", "route_id", "direction_id", "time_period"],
+        ascending=[False, True, True, True],
+    )
     return gaps.reset_index(drop=True)
 
 
