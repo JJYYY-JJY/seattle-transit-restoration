@@ -1,4 +1,5 @@
 geopandas
+gtfs-realtime-bindings
 matplotlib
 mip
 numpy
