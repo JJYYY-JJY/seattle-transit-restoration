@@ -139,7 +139,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--noaa-lookback-days",
         type=int,
-        default=env_int("UPDATER_NOAA_LOOKBACK_DAYS", 7),
+        default=env_int("UPDATER_NOAA_LOOKBACK_DAYS", 30),
         help="NOAA incremental window size for each refresh",
     )
     parser.add_argument(
@@ -308,7 +308,7 @@ def command_for_job(
 
     if job_name == "noaa":
         today = date.today()
-        start_date = today - timedelta(days=max(1, args.noaa_lookback_days))
+        start_date = today - timedelta(days=max(30, args.noaa_lookback_days))
         env_patch = {
             "NOAA_START_DATE": start_date.isoformat(),
             "NOAA_END_DATE": today.isoformat(),
