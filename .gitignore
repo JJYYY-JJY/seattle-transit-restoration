@@ -3,6 +3,9 @@
 .idea/
 .vscode/
 
+# Local caches
+.cache/
+
 # Python
 .venv/
 venv/
