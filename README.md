@@ -9,14 +9,14 @@ This repository contains a purely schedule-based, equity-aware transit connectiv
 - `data/`: Raw and processed data, organized by source (GTFS, NOAA, ACS).
 - `notebooks/`: Exploratory Jupyter notebooks matching the 10 project phases.
 - `src/`: Python source code modules (gtfs, weather, census, routing, optimization, viz).
+- `plan/`: Active and archived implementation plans (current v2 global roadmap and archived legacy plans).
 - `reports/`: Proposal, generated figures, and the final report.
-- `sql/`: SQL scripts for staging and marts (if scaling up with a DB).
-- `agent_instructions/`: Detailed step-by-step prompt files designed for an AI agent to automatically execute this project end-to-end.
+- `agent_instructions/`: Entry pointers and instruction index; completed legacy phase prompts are archived under `plan/archive/`.
 
 ## Getting Started
 1. Create a virtual environment: `python3 -m venv venv && source venv/bin/activate`
 2. Install dependencies: `pip install -r requirements.txt`
-3. AI Agent execution: Point your AI coding assistant (like Gemini CLI, Cursor, or AutoGPT) to the `agent_instructions/00_master_agent_prompt.md` to begin autonomous implementation.
+3. AI Agent execution: Start from `plan/architecture-realized-connectivity-1.md` for the active global roadmap, and use `agent_instructions/README.md` for archive pointers.
 
 ## Data Download CLI
 The repository now includes a shell entrypoint for Phase 1 data acquisition:
