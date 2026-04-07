@@ -27,3 +27,6 @@ data/processed/**
 !data/processed/.gitkeep
 !data/README.md
 
+# Local Copilot skill files (repo-scoped, do not commit)
+.github/skills/
+
