@@ -1,0 +1,17 @@
+pandas
+geopandas
+requests
+numpy
+scipy
+matplotlib
+seaborn
+jupyterlab
+tqdm
+python-dotenv
+mip
+gurobipy  # if available, otherwise fallback to mip/CBC
+pulp
+shapely
+pyproj
+sqlalchemy
+folium

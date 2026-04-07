@@ -1,0 +1,32 @@
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local secrets
+.env
+.env.*
+*.env
+!*.env.example
+!scripts/data_sources.env.example
+
+# Data artifacts (reproducible via scripts)
+data/raw/**
+data/processed/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/README.md
+
+# Generated report outputs
+reports/figures/**
+reports/final/**
