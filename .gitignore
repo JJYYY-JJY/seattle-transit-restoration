@@ -27,6 +27,3 @@ data/processed/**
 !data/processed/.gitkeep
 !data/README.md
 
-# Generated report outputs
-reports/figures/**
-reports/final/**
