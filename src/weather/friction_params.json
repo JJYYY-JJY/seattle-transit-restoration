@@ -1,0 +1,27 @@
+{
+  "Dry / Normal": {
+    "walk_speed_multiplier": 1.0,
+    "max_walk_distance_m": 800,
+    "transfer_penalty_mins": 5
+  },
+  "Light Rain": {
+    "walk_speed_multiplier": 0.9,
+    "max_walk_distance_m": 700,
+    "transfer_penalty_mins": 6
+  },
+  "Heavy Rain": {
+    "walk_speed_multiplier": 0.8,
+    "max_walk_distance_m": 400,
+    "transfer_penalty_mins": 10
+  },
+  "Cold/Windy": {
+    "walk_speed_multiplier": 0.85,
+    "max_walk_distance_m": 500,
+    "transfer_penalty_mins": 9
+  },
+  "Heat": {
+    "walk_speed_multiplier": 0.7,
+    "max_walk_distance_m": 600,
+    "transfer_penalty_mins": 8
+  }
+}
