@@ -85,3 +85,20 @@ See `data/README.md` for data publishing policy details.
 git status --short
 ```
 Confirm only code/docs files are staged before pushing.
+
+## Notebook Commit Hygiene
+
+This repository uses `pre-commit` + `nbstripout` to remove Jupyter output cells before commit.
+
+### One-time setup
+```bash
+pip install -r requirements.txt
+pre-commit install
+```
+
+### Optional: normalize all notebooks now
+```bash
+pre-commit run --all-files
+```
+
+After setup, every `git commit` automatically strips outputs from `.ipynb` files.

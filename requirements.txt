@@ -15,3 +15,5 @@ shapely
 pyproj
 sqlalchemy
 folium
+pre-commit
+nbstripout
