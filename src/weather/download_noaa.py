@@ -142,6 +142,17 @@ def build_daily_weather_csv(
     frame = pd.DataFrame(long_rows)
     wide = frame.pivot_table(index="date", columns="datatype", values="value", aggfunc="first")
     wide = wide.reset_index().sort_values("date")
+
+    # Keep a stable schema for downstream processors even when a datatype has no rows.
+    required_columns = ["PRCP", "TMAX", "TMIN", "AWND"]
+    for column in required_columns:
+        if column not in wide.columns:
+            wide[column] = pd.NA
+
+    ordered = ["date", *required_columns]
+    optional = [column for column in wide.columns if column not in ordered]
+    wide = wide[ordered + optional]
+
     output_csv.parent.mkdir(parents=True, exist_ok=True)
     wide.to_csv(output_csv, index=False)
 
