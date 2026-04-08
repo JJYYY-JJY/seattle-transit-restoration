@@ -4,6 +4,7 @@ matplotlib
 mip
 numpy
 pandas
+pyarrow
 requests
 scipy
 seaborn
